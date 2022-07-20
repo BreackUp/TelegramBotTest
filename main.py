@@ -9,6 +9,11 @@ def start(message):
     mess = f'Привет <b>{message.from_user.username}</b>! \n Спасибо что пользуешься моим ботом :з \n '
     bot.send_message(message.chat.id,mess, parse_mode='html')
 
+@bot.message_handler(commands=['help'])
+def start(message):
+    mess = f'Вот список моих команд : \n1.Привет \n2.Какао'
+    bot.send_message(message.chat.id,mess, parse_mode='html')
+
 
 @bot.message_handler()
 def main(message):
@@ -20,8 +25,11 @@ def main(message):
     if (message.text.upper().lower() == "привет"):
         Hi(message)
         TestOTVcomm = True
+    if (message.text.upper().lower() == "какао"):
+        Cocoa(message)
+        TestOTVcomm = True
     if(TestOTVcomm == False):
-        bot.send_message(message.chat.id, "Прости, но я тебя не понимаю", parse_mode='html')
+        Sry(message)
     if (os.path.exists(path + '/' + str(message.chat.id)) == False):
         os.mkdir(f"{message.chat.id}")
     print(message.text.upper().lower())
@@ -30,12 +38,22 @@ def main(message):
     my_file.close()
 
 
+def Sry(name):
+    mess = f'Прости пожалуйста, но в моей базе данных нет такой команды :( \nпопробуй прописать команду : <b> /help </b>'
+    bot.send_message(name.chat.id, mess, parse_mode='html')
+
+
 def Yes(name):
     mess = f'Вау, невероятно <b>{name.from_user.first_name}</b>, да ты крут!:з'
     bot.send_message(name.chat.id, mess, parse_mode='html')
 
 
 def Hi(name):
+    mess = f'И тебе привет <b>{name.from_user.username}</b>'
+    bot.send_message(name.chat.id, mess, parse_mode='html')
+
+
+def Cocoa(name):
     mess = f'И тебе привет <b>{name.from_user.username}</b>'
     bot.send_message(name.chat.id, mess, parse_mode='html')
 
