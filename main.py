@@ -10,9 +10,8 @@ def start(message):
     bot.send_message(message.chat.id,mess, parse_mode='html')
 
 @bot.message_handler(commands=['help'])
-def start(message):
+def help(message):
     mess = f'Вот список моих команд : \n1.Привет \n2.Какао'
-    bot.send_message(message.chat.id,mess, parse_mode='html')
 
 
 @bot.message_handler()
@@ -30,10 +29,10 @@ def main(message):
         TestOTVcomm = True
     if(TestOTVcomm == False):
         Sry(message)
-    if (os.path.exists(path + '/' + str(message.chat.id)) == False):
-        os.mkdir(f"{message.chat.id}")
+    if (os.path.exists(path + '/message/' + str(message.chat.id)) == False):
+        os.mkdir(f"message/{message.chat.id}")
     print(message.text.upper().lower())
-    my_file = open(f"{message.chat.id}\Text.txt", "a")
+    my_file = open(f"message/{message.chat.id}\Text.txt", "a")
     my_file.write(f"[{str(timenow)}]  " + message.from_user.username + ": " + message.text + "\n")
     my_file.close()
 
@@ -54,7 +53,8 @@ def Hi(name):
 
 
 def Cocoa(name):
-    mess = f'И тебе привет <b>{name.from_user.username}</b>'
-    bot.send_message(name.chat.id, mess, parse_mode='html')
+    mess = f'Вот ваше какао, приятного какаопития :^'
+    photo = open(path + '/tmp/cocoa.png', 'rb')
+    bot.send_photo(name.chat.id, photo, '')
 
 bot.polling(none_stop=True)
